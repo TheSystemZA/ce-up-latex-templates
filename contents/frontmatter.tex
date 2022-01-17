@@ -1,38 +1,11 @@
 \maketitle
-\makecoverpage
 
 \pagestyle{plain}
 \thispagestyle{plain}
-\pagenumbering{roman}
-
-\begin{center}
-\LARGE\textbf{\thetitle}
-\end{center}
-
-\section*{Abstract}
-\addcontentsline{toc}{section}{Abstract}%
-\input{contents/abstract}
-\setcounter{page}{3}
 
 \newpage
+\setcounter{page}{2}
 \tableofcontents
 
-\iftotalfigures%
-\newpage%
-\listoffigures%
-\fi
-
-\iftotaltables%
-\newpage%
-\listoftables%
-\fi
-
 \newpage
-
-%\chapter*{Nomenclature}
-\printnomenclature
-\newpage
-
 \pagestyle{plain}
-\setcounter{page}{1}
-\pagenumbering{arabic}
