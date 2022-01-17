@@ -1,8 +1,8 @@
-# PGDip & MBA @ GIBS LaTeX templates
+# Chemical Engineering @ UP LaTeX templates
 
 ## Quickstart on Overleaf
 
-Download the latest release from [Releases](https://github.com/TheSystemZA/mba-gibs-latex-templates/releases). This .zip file can be uploaded directly to [Overleaf](https://overleaf.com) and should compile with no further work.
+Download the latest release from [Releases](https://github.com/ChemEngUP/ce-up-latex-templates/releases). This .zip file can be uploaded directly to [Overleaf](https://overleaf.com) and should compile with no further work.
 
 ## Quickstart on Windows: TeXstudio
 
@@ -47,4 +47,4 @@ The multiple runs of `pdflatex` is so that the page numbers and cross-references
 
 You can also automate these tasks using [arara](https://github.com/cereda/arara) or `latexmk`. Use the tool which is already installed on your system.
 
-Always ensure that you are using the most recent version by downloading from [GitHub](https://github.com/TheSystemZA/mba-gibs-latex-templates/)
+Always ensure that you are using the most recent version by downloading from [GitHub](https://github.com/ChemEngUP/ce-up-latex-templates/)

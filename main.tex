@@ -6,15 +6,22 @@
 % arara: pdflatex
 
 \documentclass[a4paper,12pt]{article}
-%\RequirePackage[l2tabu,orthodox]{nag}
 
+\usepackage[flushleft]{threeparttable}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{multicol}
+\usepackage{adjustbox}
+\usepackage[inkscapelatex=false]{svg}
 \usepackage{upreport}
+\usepackage{pdfpages}
+\usepackage{colortbl}
+
 \addbibresource{report.bib}
 
-\title{Sample report}
-\author{Carl Sandrock}
-\studentnumber{1234567}
-\subject{CXX XXX}
+\title{SYNDICATE ASSIGNMENT}
+\author{Dean Didloff}
+\studentnumber{12345678}
+\subject{GXX 7XX – Subject Name}
 \date{\today}
 
 % Nomenclature unit command - see the documentation for nomencl
@@ -28,13 +35,27 @@
 % If you comment out one of these lines, the document can be compiled
 % without the section, but retaining page numbers and references
 % this is useful to send your supervisor a partial PDF.
-\includeonly{
-  contents/frontmatter,
-  contents/introduction,
-  contents/theory,
-  contents/experimental,
-  contents/results_discussion,
-  contents/conclusions_recommendations
+
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+%%% This section was implemented to integrate the GIBS page numbering style
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\thepage}
+
+\fancypagestyle{plain}{%
+    \renewcommand{\headrulewidth}{0pt}%
+    \fancyhf{}%
+    \fancyfoot[R]{Page \thepage \hspace{1pt} of \pageref{LastPage}}%
 }
 
 \begin{document}
@@ -53,18 +74,14 @@
 \include{contents/conclusions_recommendations}
 
 \printbibliography
+\newpage
 
 \appendix
-\renewcommand{\thefigure}{\thesection.\arabic{figure}}
-\renewcommand{\thetable}{\thesection.\arabic{table}}
-\renewcommand{\thepage}{\thesection.\arabic{page}}
 
-\section{First appendix}
-\setcounter{figure}{0}
-\setcounter{table}{0}
-\setcounter{page}{1}
-% Renew figure and page counter per Appendix using the commands above
-Include only if necessary. Not a place to dump raw figures or calculations
+\input{Appendices/Appendix_A.tex}
+
+%\input{Appendices/Appendix_B.tex}
+
 
 \end{document}
 

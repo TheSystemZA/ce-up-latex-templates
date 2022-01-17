@@ -1,5 +1,5 @@
 % Chemical Engineering @ UP Report style
-% Author: Carl Sandrock
+% Author: Dean Didloff (Carl Sandrock Chemical Engineering template used as base)
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{upreport}[2020/06/16 v0.13 University of Pretoria report style]
@@ -10,7 +10,16 @@
 %\usepackage{pandora} % optima pandora times
 
 % Typeset chemical symbols correctly
-\usepackage{chemformula}
+%\usepackage{chemformula}
+\usepackage[version=4]{mhchem}
+\usepackage{tabularx,booktabs}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+
+% Font to Helvetica (Similar to Arial which is used by GIBS)
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
 
 % AIEEE: screw up spacing to make Grimsehl happy
 \setlength{\parindent}{0in}
@@ -22,7 +31,7 @@
 
 % Use ISO date format
 \usepackage[iso,english]{isodate}
-
+\usepackage{textgreek}
 % spacing
 \usepackage{setspace}
   \onehalfspacing
@@ -33,9 +42,15 @@
 % Allow inverted commas in the bibliography
 \usepackage{csquotes}
 
-% bibliographical typesetting
-\usepackage[style=authoryear, dashed=false, backend=biber, maxbibnames=99,
-			 citetracker=true, maxcitenames=2, natbib=true, uniquename=init, giveninits=true, terseinits=true, alldates=iso]{biblatex}
+% bibliographical typesetting to APA 7th Edition as required by GIBS
+%\usepackage[style=apa, backend=biber]{biblatex}
+%\usepackage{babel}
+\usepackage[%
+backend=biber,
+natbib=true,
+style=apa,
+]{biblatex} 
+
 % natbib=true allows the natbib \cite syntax to be used, this should be used for existing files only
 % \parencite replaces \citep
 % \textcite replaces \citet
@@ -100,11 +115,38 @@
 % For rotated figures and tables
 \usepackage{rotating}
 \usepackage{pdflscape}
-
+\usepackage{pgfgantt}
 % Enable the default extensions for PDFTeX
 %\DeclareGraphicsExtensions{.jpg, .pdf, .mps, .png}
 % Define a default graphics path as graph
 %\graphicspath{{graph/}}
+
+% \sqbox command needed for the MARK box on the GIBS front page
+\usepackage{collectbox}
+\newcommand{\sqbox}{%
+    \collectbox{%
+        \@tempdima=\dimexpr\width-\totalheight\relax
+        \ifdim\@tempdima<\z@
+            \fbox{\hbox{\hspace{-.5\@tempdima}\BOXCONTENT\hspace{-.5\@tempdima}}}%
+        \else
+            \ht\collectedbox=\dimexpr\ht\collectedbox+.5\@tempdima\relax
+            \dp\collectedbox=\dimexpr\dp\collectedbox+.5\@tempdima\relax
+            \fbox{\BOXCONTENT}%
+        \fi
+    }%
+}
+
+
+% Notes command needed for "Lecturer  Comments" section on front page
+\usepackage{pgffor, ifthen}
+\newcommand{\notes}[3][\empty]{%
+    \noindent \textbf{\underline{LECTURER COMMENTS:}}\vspace{12pt}\\
+    \foreach \n in {1,...,#2}{%
+        \ifthenelse{\equal{#1}{\empty}}
+            {\rule{#3}{0.5pt}\\}
+            {\rule{#3}{0.5pt}\vspace{#1}\\}
+        }
+}
 
 % reserved commands for defining title page variables
 \newcommand*{\subject}[1]{\gdef\@subject{#1}}
@@ -132,37 +174,40 @@
   % Avoid duplicate page names:
   \renewcommand{\thepage}{Title 1}
   \begin{titlepage}
+    \includegraphics[width=5cm]{Figures/GIBS.png}
+    
+    \flushright{\textbf{MARK    } \sqbox{\textcolor{white}{MARKS}}}
+    
     \begin{center}%
       \null
-      \vfill
-      {\huge\textbf{\@title} \par}%
+      \vskip -1em
+      {\Large\textbf{\@title} \par}%
       \vskip 3em%
-      \@author
-    \end{center}\par
-    \vfill
-    \flushright{\@subject \par \today \par}
-  \end{titlepage}
-  \endgroup
-}
 
-\newcommand{\makecoverpage}{
-  \begingroup
-  % Avoid duplicate page names:
-  \renewcommand{\thepage}{coverpage}
-  \begin{titlepage}
-    \newpage%
-    \null\vfill%
-    \begin{center}%
-      \textbf{\LARGE \@title}%
-      \vfill%
-      \textbf{\large \@author}\\%
-      \textbf{\large \@studentnumber}%
-      \vskip 3em
-      Department of Chemical Engineering\\
-      University of Pretoria
-    \end{center}
+        \begin{table}[H]
+        \begin{tabular}{|
+        >{\columncolor[HTML]{C0C0C0}}l |l|}
+        \hline
+        \textbf{PROGRAMME:}                                                                                                              & \textbf{\begin{tabularx}{0.414\textwidth}[c]{@{}l@{}}PGDip General Management\\ Green Group\end{tabularx}}   \\ \hline
+        \textbf{PROGRAMME MANAGER:}                                                                                                      &                                                                                                              \\ \hline
+        \textbf{SYNDICATE GROUP NUMBER/NAME:}                                                                                            & Group X                                                                                                      \\ \hline
+        \cellcolor[HTML]{C0C0C0}                                                                                                         &                                                                                                              \\ \cline{2-2} 
+        \cellcolor[HTML]{C0C0C0}                                                                                                         &                                                                                                              \\ \cline{2-2} 
+        \cellcolor[HTML]{C0C0C0}                                                                                                         &                                                                                                              \\ \cline{2-2} 
+        \cellcolor[HTML]{C0C0C0}                                                                                                         &                                                                                                              \\ \cline{2-2} 
+        \cellcolor[HTML]{C0C0C0}                                                                                                         &                                                                                                              \\ \cline{2-2} 
+        \cellcolor[HTML]{C0C0C0}                                                                                                         &                                                                                                              \\ \cline{2-2} 
+        \cellcolor[HTML]{C0C0C0}                                                                                                         &                                                                                                              \\ \cline{2-2} 
+        \multirow{-8}{*}{\cellcolor[HTML]{C0C0C0}\textbf{\begin{tabular}[c]{@{}l@{}}SYNDICATE MEMBERS NAMES \&\\ SURNAMES\end{tabular}}} &                                                                                                              \\ \hline
+        \textbf{LECTURER:}                                                                                                               &                                                                                                              \\ \hline
+        \textbf{COURSE} (Include course code if applicable):                                                                             & \@subject                                                                                                    \\ \hline
+        \textbf{DUE DATE:}                                                                                                               &                                                                                                              \\ \hline
+        \end{tabular}
+        \end{table}
+
+    \end{center}\par
+    \flushleft{\notes{3}{\textwidth}}
     \vfill
-    \flushright{\@subject \par \today}\par
   \end{titlepage}
   \endgroup
 }
