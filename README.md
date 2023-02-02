@@ -1,3 +1,5 @@
+![GIBS_Template__v0_3_](https://user-images.githubusercontent.com/44869890/216391412-92cc7dc1-6846-4d53-a9ca-eec584bab99c.png)
+
 # PGDip & MBA @ GIBS LaTeX templates
 
 ## Quickstart on Overleaf
